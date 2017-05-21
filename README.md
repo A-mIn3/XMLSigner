@@ -4,5 +4,5 @@
     validation without certificate path verification.
     
     A JAVA KeyStore is being used to store  trusted certificates.This KeyStore however does not support importing 
-    previously generayed keys .
-    This is the purpose of the importKey source file which a good tool to help import your own keys . 
+    previously generated keys .
+    This is the purpose of the importKey source file which is a good tool to help import your own keys . 
