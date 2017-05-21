@@ -1,5 +1,4 @@
 package test;
-
 import java.security.Key;
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
@@ -15,8 +14,14 @@ import javax.xml.crypto.dsig.SignatureMethod;
 import javax.xml.crypto.dsig.keyinfo.KeyInfo;
 import javax.xml.crypto.dsig.keyinfo.X509Data;
 
+
+/*
+ * 
+ * Cette classe est necessaire afin de pouvoir extraire la cle publique du certificat x509
+ * 
+ * */
 public class X509KeySelector extends KeySelector {
-	
+
 
 	public KeySelectorResult select(KeyInfo keyInfo,
 			KeySelector.Purpose purpose,
@@ -34,29 +39,29 @@ public class X509KeySelector extends KeySelector {
 				Object o = xi.next();
 				if (!(o instanceof X509Certificate))
 					continue;
-				final PublicKey key = ((X509Certificate)o).getPublicKey();
-				// Make sure the algorithm is compatible
-				// with the method.
-				if (algEquals(method.getAlgorithm(),key.getAlgorithm())) {
-					return new KeySelectorResult() {
-						public Key getKey() { return key; }
-					};
-				}
-			}
-		}
-		throw new KeySelectorException("No key found!");
+			     return  new CertResult(((X509Certificate)o).getPublicKey());
+			}	
+			throw new KeySelectorException("pas de cle publique pour l'objet keyInfo");
+
+		 }
+	  return null;
 	}
 
-	 static boolean algEquals(String algURI, String algName) {
-	        if ((algName.equalsIgnoreCase("DSA") &&
-	            algURI.equalsIgnoreCase(SignatureMethod.DSA_SHA1)) ||
-	            (algName.equalsIgnoreCase("RSA") &&
-	            algURI.equalsIgnoreCase(SignatureMethod.RSA_SHA1))) {
-	            return true;
-	        } else {
-	            return false;
-	        }
-	    }
+	static class CertResult implements KeySelectorResult{
+		private PublicKey key;
+		public CertResult(PublicKey key){
+			this.key=key;
+		}
+		public Key getKey(){
+			return key;
+
+		}
 	}
+
+
+
+
+}
+
 
 
