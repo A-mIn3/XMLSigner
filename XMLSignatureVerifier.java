@@ -32,13 +32,14 @@ public class XMLSignatureVerifier {
 	}
 	
 	
-	public boolean  isValid(){
+	public boolean  isValid() throws Exception{
+		verify();
 		return valid;
 	}
 	
-	private void setValid(boolean valide) throws Exception{
-		verify();
-		this.valid =valide;
+	private void setValid(boolean valid) {
+		
+		this.valid =valid;
 	}
 	
 	private void verify() throws Exception{
@@ -50,7 +51,7 @@ public class XMLSignatureVerifier {
 		DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
 		builderFactory.setNamespaceAware(true);
 		try {
-			 builderFactory.newDocumentBuilder().parse(signedXmlfilename);
+			document =  builderFactory.newDocumentBuilder().parse(signedXmlfilename);
 
 		} catch (SAXException | IOException | ParserConfigurationException e) {
 				System.out.println(e.getMessage());

@@ -123,7 +123,7 @@ public class XMLSigner {
 		x509Content.add(certificat.getSubjectX500Principal().getName());
 		x509Content.add(certificat);
 		X509Data x509data = keyInfoFactory.newX509Data(x509Content);
-	   	keyInfo = keyInfoFactory.newKeyInfo(Collections.singletonList(x509data));
+	    keyInfo = keyInfoFactory.newKeyInfo(Collections.singletonList(x509data));
 	}
 
 	
@@ -133,6 +133,7 @@ public class XMLSigner {
 	
 	
 	public void sign() {
+		
 		org.w3c.dom.Document document = null;
 		
 		DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
