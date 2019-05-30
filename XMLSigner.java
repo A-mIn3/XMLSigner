@@ -110,7 +110,7 @@ public class XMLSigner {
 		X509Certificate certificat = null;
 		try{
 			KeyStore ks = KeyStore.getInstance("JKS");
-			ks.load(new FileInputStream("/Users/Amine/keystore.ImportKey"), "importkey".toCharArray());
+			ks.load(new FileInputStream("ImportKey"), "importkey".toCharArray());
 			keyEntry = (KeyStore.PrivateKeyEntry) ks.getEntry
 					("importkey", new KeyStore.PasswordProtection("importkey".toCharArray()));
 			certificat = (X509Certificate) keyEntry.getCertificate();
